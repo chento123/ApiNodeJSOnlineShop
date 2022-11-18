@@ -4,7 +4,7 @@ const slide = (app) => {
     const validateToken = require("../auth/validateToken.controller")
     const { SaveSlide, GetSlide, TotalRecord, GetAutoID, UpdateSlide, SearchSlideByID, SearchSlideByName } = require("../controller/slide.controller")
     router.post("/slide", validateToken, upload.single("image"), SaveSlide);
-    router.get("/slide", validateToken, GetSlide);
+    router.get("/slide/:s/:e", validateToken, GetSlide);
     router.get("/slide-total", validateToken, TotalRecord);
     router.get("/slide-auto-id", validateToken, GetAutoID);
     router.put("/slide", validateToken, upload.single("image"), UpdateSlide)

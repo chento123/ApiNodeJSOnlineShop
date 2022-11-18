@@ -99,7 +99,8 @@ const SaveSlide = (req, res) => {
     }
 }
 const GetSlide = (req, res) => {
-    var { s, e } = req.body;
+    var s = req.params['s'];
+    var e = req.params["e"];
     const fld = "*";
     const tbl = "tbl_slide";
     var cond = "id > 0";

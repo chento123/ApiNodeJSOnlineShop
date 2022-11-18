@@ -237,16 +237,10 @@ const SearchUserByName = (req, res) => {
     }
 }
 const SearchUserByID = (req, res) => {
-    var { id, s, e } = req.body;
+    var id = req.params["id"];
     var message = {};
-    if (isEmpty(e)) {
-        message.e = "end is require and have to greater than zero"
-    } else if (isEmpty(id)) {
+    if (isEmpty(id)) {
         message.id = "id is require"
-    } else if (isEmpty(s)) {
-        s = 0
-    } else if (s > e) {
-        message.cannot = "start value can not greater than end value"
     }
     if (Object.keys(message).length > 0) {
         res.json({
@@ -254,11 +248,21 @@ const SearchUserByID = (req, res) => {
             message: message
         })
     } else {
-        const tbl = "tbl_user";
-        const fld = "id,fullname,photo,username,data_createed,date_login,od,status";
-        const cond = `id LIKE '%${id}%'`;
-        const od = "id DESC"
-        Search(fld, tbl, cond, od, s, e, res);
+        const fld = "id,fullname,photo,phone,data_createed,date_login,phone";
+        var sql = `SELECT  ${fld} FROM tbl_user where id=?`;
+        db.query(sql, [id], (err, result, fld) => {
+            if (err) {
+                res.json({
+                    error: true,
+                    message: err,
+                });
+            } else {
+                res.json({
+                    error: false,
+                    result: result
+                })
+            }
+        })
     }
 }
 const generateToken = (obj_infor) => {

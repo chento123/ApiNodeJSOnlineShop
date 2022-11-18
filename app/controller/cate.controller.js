@@ -11,8 +11,30 @@ const {
     Search
 } = require("../action/database.action");
 const GetCate = (req, res) => {
-    var { s, e } = req.body;
+    var s = req.params['s'];
+    var e = req.params["e"];
     const fld = "*";
+    const tbl = "tbl_category";
+    var cond = "id>0";
+    var od = "id";
+    if (s == undefined) {
+        res.json({
+            error: true,
+            message: "Start Require to limit data",
+        });
+    } else if (isEmpty(e)) {
+        res.json({
+            error: true,
+            message: "End Require to limit data",
+        });
+    } else {
+        GetList(fld, tbl, s, e, cond, od, res);
+    }
+};
+const GetCateProduct = (req, res) => {
+    var s = req.params['s'];
+    var e = req.params["e"];
+    const fld = "id,name";
     const tbl = "tbl_category";
     var cond = "id>0";
     var od = "id";
@@ -199,5 +221,6 @@ module.exports = {
     GetAutoID,
     UpdateCate,
     SearchCateByName,
-    SearchCateByID
+    SearchCateByID,
+    GetCateProduct
 };

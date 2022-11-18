@@ -12,6 +12,8 @@ require("./app/routes/user.route")(app);
 require("./app/routes/slide.route")(app)
 require("./app/routes/subcate.route")(app)
 require("./app/routes/product.route")(app)
+require("./app/routes/invoice.route")(app)
+require("./app/routes/invoice_detail.route")(app)
 app.use("/photo", express.static('upload'));
 const port = process.env.port || 3000;
 app.listen(port, () => {
