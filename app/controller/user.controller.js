@@ -73,7 +73,7 @@ const LoginUser = (req, res) => {
     }
 };
 const RegisterUser = (req, res) => {
-    var { id, fullname, username, password, od, status } =
+    var { id, fullname, username, password, od, status,phone } =
     req.body;
     var message = {};
     var ts = Date.now();
@@ -127,7 +127,7 @@ const RegisterUser = (req, res) => {
                     })
                 } else {
                     password = bcrypt.hashSync(password, 10);
-                    var val = [fullname, photo, username, password, date_login, date_login, od, status];
+                    var val = [fullname, photo, username, password,phone, date_login, date_login, od, status];
                     var mark = "NULL,?";
                     SaveData(tbl, val, mark, res);
                 }
@@ -137,7 +137,7 @@ const RegisterUser = (req, res) => {
 };
 const GetUser = (req, res) => {
     var { s, e } = req.body;
-    const fld = "id,fullname,photo,username,data_createed,date_login,od,status";
+    const fld = "id,fullname,photo,username,date_created,date_login,od,status";
     const tbl = "tbl_user";
     var cond = "id>0";
     var od = "id";
@@ -230,7 +230,7 @@ const SearchUserByName = (req, res) => {
         })
     } else {
         const tbl = "tbl_user";
-        const fld = "id,fullname,photo,username,data_createed,date_login,od,status";
+        const fld = "id,fullname,photo,username,date_created,date_login,od,status";
         const cond = `fullname LIKE '%${name}%' OR username LIKE '%${name}%' `;
         const od = "id DESC"
         Search(fld, tbl, cond, od, s, e, res);
@@ -248,7 +248,7 @@ const SearchUserByID = (req, res) => {
             message: message
         })
     } else {
-        const fld = "id,fullname,photo,phone,data_createed,date_login,phone";
+        const fld = "id,fullname,photo,phone,date_created,date_login,phone";
         var sql = `SELECT  ${fld} FROM tbl_user where id=?`;
         db.query(sql, [id], (err, result, fld) => {
             if (err) {

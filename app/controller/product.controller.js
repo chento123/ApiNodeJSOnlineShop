@@ -67,6 +67,7 @@ const SaveProduct = (req, res) => {
                         message: "Duplicate name !!",
                     })
                 } else {
+                    //id	name	price	dis	price_dis	photo	sub_id	cate_id	slide_id	od	name_link	cus_id	des	click	status	
                     const val = [name, price, dis, price_dis, photo, sub_id, cate_id, slide_id, od, name_link, cus_id, des, click, status]
                     const mark = "NULL,?"
                     SaveData(tbl, val, mark, res);
